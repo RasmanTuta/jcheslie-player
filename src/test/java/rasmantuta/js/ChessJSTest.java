@@ -21,6 +21,9 @@ import static org.hamcrest.core.IsNull.*;
 import static org.junit.Assert.*;
 import static rasmantuta.js.ChessJS.*;
 
+/*
+    test content taken from the chess.js readme.md
+ */
 public class ChessJSTest {
     public static final String INITIAL_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
     public static final String INITIAL_FEN_EXPECTED = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
