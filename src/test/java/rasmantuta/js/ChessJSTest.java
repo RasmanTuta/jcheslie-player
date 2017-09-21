@@ -313,58 +313,72 @@ public class ChessJSTest {
 //
 //        chess.move('Nf6')
 //// -> { color: 'b', from: 'g8', to: 'f6', flags: 'n', piece: 'n', san: 'Nf6'
+        fail();
     }
 
     @Test
     public void move1() throws Exception {
+        fail();
     }
 
     @Test
     public void moves() throws Exception {
+        fail();
     }
 
     @Test
     public void movesInformation() throws Exception {
+        fail();
     }
 
     @Test
     public void numberOfPieces() throws Exception {
+        fail();
     }
 
     @Test
     public void perft() throws Exception {
+        fail();
     }
 
     @Test
     public void pgn() throws Exception {
+        fail();
     }
 
     @Test
     public void put() throws Exception {
+        fail();
     }
 
     @Test
     public void remove() throws Exception {
+        fail();
     }
 
     @Test
     public void reset() throws Exception {
+        fail();
     }
 
     @Test
     public void square_color() throws Exception {
+        fail();
     }
 
     @Test
     public void turn() throws Exception {
+        fail();
     }
 
     @Test
     public void undo() throws Exception {
+        fail();
     }
 
     @Test
     public void validate_fen() throws Exception {
+        fail();
     }
 
 }
