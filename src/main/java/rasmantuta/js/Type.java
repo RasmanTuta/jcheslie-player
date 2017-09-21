@@ -3,9 +3,9 @@ package rasmantuta.js;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonValue;
 
-public enum Pieces {PAWN("p"), KNIGHT("n"), BISHOP("b"), ROOK("r"), QUEEN("q"), KING("k");
+public enum Type {PAWN("p"), KNIGHT("n"), BISHOP("b"), ROOK("r"), QUEEN("q"), KING("k");
     private final String piece;
-    Pieces(String piece) {
+    Type(String piece) {
         this.piece = piece;
     }
 
@@ -18,8 +18,8 @@ public enum Pieces {PAWN("p"), KNIGHT("n"), BISHOP("b"), ROOK("r"), QUEEN("q"), 
     }
 
     @JsonCreator
-    public static Pieces fromPiece(String text) {
-        for (Pieces p : Pieces.values()) {
+    public static Type fromPiece(String text) {
+        for (Type p : Type.values()) {
             if (p.piece.equalsIgnoreCase(text)) {
                 return p;
             }

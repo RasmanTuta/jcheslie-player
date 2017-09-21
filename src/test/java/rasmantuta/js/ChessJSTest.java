@@ -1,18 +1,7 @@
 package rasmantuta.js;
 
-import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
-import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import org.hamcrest.core.Is;
-import org.hamcrest.core.IsNull;
-import org.junit.Assert;
 import org.junit.Test;
 
-import javax.script.Invocable;
-import javax.script.ScriptEngine;
-import javax.script.ScriptException;
-
-import java.io.FileReader;
-import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Map;
 
@@ -107,13 +96,13 @@ public class ChessJSTest {
     public void get() throws Exception {
         ChessJS chess = chess();
         chess.clear();
-        boolean put = chess.put(new Piece(Pieces.PAWN, Color.BLACK), "a5");// put a black pawn on a5
+        boolean put = chess.put(new Piece(Type.PAWN, Color.BLACK), "a5");// put a black pawn on a5
 
         assertThat(put, is(true));
 
         Piece a5 = chess.get("a5");
         assertThat(a5.color, is(Color.BLACK));
-        assertThat(a5.type, is(Pieces.PAWN));
+        assertThat(a5.type, is(Type.PAWN));
         Piece a6 = chess.get("a6");
         assertThat(a6, is(nullValue()));
     }

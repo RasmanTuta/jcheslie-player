@@ -22,7 +22,7 @@ import java.util.stream.Collectors;
 
 public class ChessJS {
     private final static Invocable invocable;
-    private final static ScriptEngine engine;
+    protected final static ScriptEngine engine;
     private final ScriptObjectMirror chess;
 
     static {
