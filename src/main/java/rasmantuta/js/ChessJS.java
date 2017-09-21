@@ -104,27 +104,27 @@ public class ChessJS {
     }
 
     boolean insufficientMaterial() {
-        return false;
+        return (boolean) chess.callMember("insufficient_material");
     }
 
     boolean inCheck() {
-        return false;
+        return (boolean) chess.callMember("in_check");
     }
 
     boolean inCheckmate() {
-        return false;
+        return (boolean) chess.callMember("in_checkmate");
     }
 
     boolean inDraw() {
-        return false;
+        return (boolean) chess.callMember("in_draw");
     }
 
     boolean inStalemate() {
-        return false;
+        return (boolean) chess.callMember("in_stalemate");
     }
 
     boolean inThreefoldRepetition() {
-        return false;
+        return (boolean) chess.callMember("in_threefold_repetition");
     }
 
     boolean load(String fen) {
