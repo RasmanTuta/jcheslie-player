@@ -54,9 +54,9 @@ public class Converter {
         }
     }
 
-    public static Move convertMove(Map<String, Object> move) {
-        return new Move((String)move.get("from"), (String)move.get("to"), Color.fromColor((String)move.get("color")), Flag.flags((String)move.get("flags"))
+    public static Move move(Map<String, Object> move) {
+
+        return null == move ? null : new Move((String)move.get("from"), (String)move.get("to"), Color.fromColor((String)move.get("color")), Flag.flags((String)move.get("flags"))
                 , Type.fromPiece((String)move.get("piece")), (String)move.get("san"), Type.fromPiece((String)move.get("promotion")));
-//        color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4'
     }
 }

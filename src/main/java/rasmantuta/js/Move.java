@@ -106,4 +106,17 @@ public class Move {
         result = 31 * result + (promotion != null ? promotion.hashCode() : 0);
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "Move{" +
+                "from='" + from + '\'' +
+                ", to='" + to + '\'' +
+                ", color=" + color +
+                ", flags=" + flags +
+                ", piece=" + piece +
+                ", san='" + san + '\'' +
+                ", promotion=" + promotion +
+                '}';
+    }
 }

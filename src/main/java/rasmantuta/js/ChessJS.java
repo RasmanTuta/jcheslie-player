@@ -1,23 +1,15 @@
 package rasmantuta.js;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import jdk.nashorn.api.scripting.NashornScriptEngineFactory;
 import jdk.nashorn.api.scripting.ScriptObjectMirror;
-import jdk.nashorn.internal.runtime.PropertyMap;
-import jdk.nashorn.internal.runtime.ScriptObject;
 
-import javax.script.Bindings;
 import javax.script.Invocable;
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
-import javax.script.SimpleBindings;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class ChessJS {
@@ -103,7 +95,7 @@ public class ChessJS {
         ScriptObjectMirror verbose = Converter.convertJSONString(engine, "{ verbose: true }");
         ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history", verbose);
 
-        return history.values().stream().map(h ->Converter.convertMove((ScriptObjectMirror) h)).collect(Collectors.toList());
+        return history.values().stream().map(h ->Converter.move((ScriptObjectMirror) h)).collect(Collectors.toList());
     }
 
     boolean insufficientMaterial() {
@@ -141,9 +133,9 @@ public class ChessJS {
         return false;
     }
 
-    Object move(String move) {
-        Object ret = chess.callMember("move", move);
-        return ret;
+    Move move(String move) {
+        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", move);
+        return Converter.move(retMove);
     }
 
     Object move(Move move) {

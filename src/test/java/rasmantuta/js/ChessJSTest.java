@@ -298,17 +298,15 @@ public class ChessJSTest {
 
     @Test
     public void move() throws Exception {
-//        var chess = new Chess();
-//
-//        chess.move('e4')
-//// -> { color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4' }
-//
-//        chess.move('nf6') // SAN is case sensitive!!
-//// -> null
-//
-//        chess.move('Nf6')
-//// -> { color: 'b', from: 'g8', to: 'f6', flags: 'n', piece: 'n', san: 'Nf6'
-        fail();
+        ChessJS chess = chess();
+
+        Move e4 = chess.move("e4");
+        assertThat(e4, is(new Move("e2", "e4", Color.WHITE, Flag.flags("b"), Type.PAWN, "e4")));
+
+        assertNull(chess.move("nf6")); // SAN is case sensitive!!
+
+        Move nf6 = chess.move("Nf6");
+        assertThat(nf6, is(new Move("g8", "f6", Color.BLACK, Flag.flags("n"), Type.KNIGHT, "Nf6")));
     }
 
     @Test
