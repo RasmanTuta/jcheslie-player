@@ -2,6 +2,8 @@ package rasmantuta.js;
 
 import org.junit.Test;
 
+import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
@@ -136,14 +138,15 @@ public class ChessJSTest {
         chess.move("exf4");
 
         List<String> history = chess.history();
-// -> ["e4", "e5", "f4", "exf4"]
+        assertThat(history, is(Arrays.asList("e4", "e5", "f4", "exf4")));
 
-//        chess.history({ verbose: true });
-// -> [{ color: "w", from: "e2", to: "e4", flags: "b", piece: "p", san: "e4" },
-//     { color: "b", from: "e7", to: "e5", flags: "b", piece: "p", san: "e5" },
-//     { color: "w", from: "f2", to: "f4", flags: "b", piece: "p", san: "f4" },
-//     { color: "b", from: "e5", to: "f4", flags: "c", piece: "p", captured: "p", san: "exf4" }]
-        fail();
+        List<Move> moves = chess.verboseHistory();
+        assertThat(moves, is(Arrays.asList(
+                new Move("e2", "e4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e4" ),
+                new Move("e7", "e5", Color.BLACK, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e5" ),
+                new Move("f2", "f4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "f4" ),
+                new Move("e5", "f4", Color.BLACK, EnumSet.of(Flag.CAPTURE), Type.PAWN, "exf4" )
+        )));
     }
 
     @Test

@@ -99,8 +99,11 @@ public class ChessJS {
         return history.values().stream().map(Object::toString).collect(Collectors.toList());
     }
 
-    List<String> verboseHistory() {
-        return null;
+    List<Move> verboseHistory() {
+        ScriptObjectMirror verbose = Converter.convertJSONString(engine, "{ verbose: true }");
+        ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history", verbose);
+
+        return history.values().stream().map(h ->Converter.convertMove((ScriptObjectMirror) h)).collect(Collectors.toList());
     }
 
     boolean insufficientMaterial() {

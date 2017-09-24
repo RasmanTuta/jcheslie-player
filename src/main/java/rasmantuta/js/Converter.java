@@ -7,6 +7,7 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.util.Map;
 
 public class Converter {
 
@@ -43,5 +44,19 @@ public class Converter {
         } catch (ScriptException e) {
             throw new ChessException("Failed to eval JSON object", e);
         }
+    }
+
+    public static ScriptObjectMirror convertJSONString(ScriptEngine engine, String json) {
+        try {
+            return (ScriptObjectMirror) engine.eval("Java.asJSONCompatible(" + json + ")");
+        } catch (ScriptException e) {
+            throw new ChessException("Failed to eval JSON object", e);
+        }
+    }
+
+    public static Move convertMove(Map<String, Object> move) {
+        return new Move((String)move.get("from"), (String)move.get("to"), Color.fromColor((String)move.get("color")), Flag.flags((String)move.get("flags"))
+                , Type.fromPiece((String)move.get("piece")), (String)move.get("san"), Type.fromPiece((String)move.get("promotion")));
+//        color: 'w', from: 'e2', to: 'e4', flags: 'b', piece: 'p', san: 'e4'
     }
 }

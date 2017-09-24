@@ -29,6 +29,16 @@ public class Move {
         this.promotion = promotion;
     }
 
+    public Move(String from, String to, Color color, EnumSet<Flag> flags, Type piece, String san) {
+        this.from = from;
+        this.to = to;
+        this.color = color;
+        this.flags = flags;
+        this.piece = piece;
+        this.san = san;
+        this.promotion = null;
+    }
+
     public Move(String from, String to) {
         this.from = from;
         this.to = to;
@@ -67,5 +77,33 @@ public class Move {
     @JsonProperty
     public String getPromotion(){
         return null == promotion ? null: promotion.piece();
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Move move = (Move) o;
+
+        if (!from.equals(move.from)) return false;
+        if (!to.equals(move.to)) return false;
+        if (color != move.color) return false;
+        if (flags != null ? !flags.equals(move.flags) : move.flags != null) return false;
+        if (piece != move.piece) return false;
+        if (san != null ? !san.equals(move.san) : move.san != null) return false;
+        return promotion == move.promotion;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = from.hashCode();
+        result = 31 * result + to.hashCode();
+        result = 31 * result + (color != null ? color.hashCode() : 0);
+        result = 31 * result + (flags != null ? flags.hashCode() : 0);
+        result = 31 * result + (piece != null ? piece.hashCode() : 0);
+        result = 31 * result + (san != null ? san.hashCode() : 0);
+        result = 31 * result + (promotion != null ? promotion.hashCode() : 0);
+        return result;
     }
 }
