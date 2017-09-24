@@ -310,8 +310,11 @@ public class ChessJSTest {
     }
 
     @Test
-    public void move1() throws Exception {
-        fail();
+    public void moveMove() throws Exception {
+        ChessJS chess = chess();
+
+        Object move = chess.move(new Move("g2", "g3"));
+        assertThat(move, is(new Move("g2", "g3", Color.WHITE, Flag.flags("n"), Type.PAWN, "g3")));
     }
 
     @Test

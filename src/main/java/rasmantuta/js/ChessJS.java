@@ -139,7 +139,8 @@ public class ChessJS {
     }
 
     Object move(Move move) {
-        return null;
+        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", Converter.convert(engine, move));
+        return Converter.move(retMove);
     }
 
     Object sloppyMove(String move) {
