@@ -58,4 +58,12 @@ public class FlagTest {
         flags.containsAll(EnumSet.allOf(Flag.class));
     }
 
+    @Test
+    public void set() throws Exception {
+        EnumSet<Flag> set1 = EnumSet.of(Flag.CAPTURE, Flag.EN_PASSANT);
+        EnumSet<Flag> set2 = EnumSet.of(Flag.EN_PASSANT, Flag.CAPTURE);
+
+        String flags1 = Flag.flags(set1);
+        String flags2 = Flag.flags(set2);
+    }
 }
