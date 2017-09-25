@@ -397,7 +397,17 @@ public class ChessJSTest {
 
     @Test
     public void put() throws Exception {
-        fail();
+        ChessJS chess = chess();
+
+        chess.clear();
+
+        assertTrue(chess.put(new Piece(Type.PAWN, Color.BLACK), "a5")); // put a black pawn on a5
+        assertTrue(chess.put(new Piece(Type.KING, Color.WHITE), "h1")); // shorthand
+        assertThat(chess.fen(), is("8/8/8/p7/8/8/8/7K w - - 0 1"));
+
+        chess.clear();
+        assertTrue(chess.put(new Piece(Type.KING, Color.WHITE), "a1"));
+        assertFalse(chess.put(new Piece(Type.KING, Color.WHITE), "h1")); // fail - two kings
     }
 
     @Test
