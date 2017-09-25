@@ -412,7 +412,14 @@ public class ChessJSTest {
 
     @Test
     public void remove() throws Exception {
-        fail();
+        ChessJS chess = chess();
+        chess.clear();
+        chess.put(new Piece(Type.PAWN, Color.BLACK), "a5"); // put a black pawn on a5
+        chess.put(new Piece(Type.KING, Color.WHITE), "h1"); // put a white king on h1
+
+        assertThat(chess.remove("a5"), is(new Piece(Type.PAWN, Color.BLACK)));
+        assertThat(chess.remove("h1"), is(new Piece(Type.KING, Color.WHITE)));
+        assertThat(chess.remove("e1"), is(nullValue()));
     }
 
     @Test

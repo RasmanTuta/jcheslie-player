@@ -11,11 +11,6 @@ public enum Color {BLACK("b"), WHITE("w");
     @JsonValue
     public String color(){return color;}
 
-    @Override
-    public String toString() {
-        return color;
-    }
-
     public static Color fromColor(String text) {
         for (Color c : Color.values()) {
             if (c.color.equalsIgnoreCase(text)) {

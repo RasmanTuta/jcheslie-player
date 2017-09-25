@@ -196,7 +196,8 @@ public class ChessJS {
     }
 
     public Piece remove(String square) {
-        return null;
+        ScriptObjectMirror removed = (ScriptObjectMirror) chess.callMember("remove", square);
+        return piece(removed);
     }
 
     public boolean reset() {

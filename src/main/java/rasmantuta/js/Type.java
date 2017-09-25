@@ -12,11 +12,6 @@ public enum Type {PAWN("p"), KNIGHT("n"), BISHOP("b"), ROOK("r"), QUEEN("q"), KI
     @JsonValue
     public String piece(){return piece;}
 
-    @Override
-    public String toString() {
-        return piece;
-    }
-
     @JsonCreator
     public static Type fromPiece(String text) {
         for (Type p : Type.values()) {
