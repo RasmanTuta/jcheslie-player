@@ -200,8 +200,8 @@ public class ChessJS {
         return piece(removed);
     }
 
-    public boolean reset() {
-        return false;
+    public void reset() {
+        chess.callMember("reset");
     }
 
     public String squareColor(String square) {
