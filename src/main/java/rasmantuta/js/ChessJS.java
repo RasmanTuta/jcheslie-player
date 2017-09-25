@@ -144,7 +144,9 @@ public class ChessJS {
     }
 
     Object sloppyMove(String move) {
-        return null;
+        ScriptObjectMirror sloppy = Converter.convertJSONString(engine, "{sloppy: true}");
+        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", move, sloppy);
+        return Converter.move(retMove);
     }
 
 

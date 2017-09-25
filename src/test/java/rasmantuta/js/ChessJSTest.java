@@ -310,11 +310,28 @@ public class ChessJSTest {
     }
 
     @Test
-    public void moveMove() throws Exception {
+    public void extendedMove() throws Exception {
         ChessJS chess = chess();
 
         Object move = chess.move(new Move("g2", "g3"));
         assertThat(move, is(new Move("g2", "g3", Color.WHITE, Flag.flags("n"), Type.PAWN, "g3")));
+    }
+
+    @Test
+    public void sloppyMove() throws Exception {
+        ChessJS chess = chess();
+// various forms of Long Algebraic Notation
+        assertThat(chess.sloppyMove("e2e4"), is(new Move("e2", "e4", Color.WHITE, Flag.flags("b"), Type.PAWN, "e4")));
+        assertThat(chess.sloppyMove("e7-e5"), is(new Move("e7", "e5", Color.BLACK, Flag.flags("b"), Type.PAWN, "e5")));
+        assertThat(chess.sloppyMove("Pf2f4"), is(new Move("f2", "f4", Color.WHITE, Flag.flags("b"), Type.PAWN, "f4")));
+        assertThat(chess.sloppyMove("Pe5xf4"), is(new Move("e5", "f4", Color.BLACK, Flag.flags("c"), Type.PAWN, "exf4")));
+
+// correctly parses incorrectly disambiguated moves
+        chess = chess("r2qkbnr/ppp2ppp/2n5/1B2pQ2/4P3/8/PPP2PPP/RNB1K2R b KQkq - 3 7");
+
+        assertNull(chess.move("Nge7"));  // Ne7 is unambiguous because the knight on c6 is pinned
+
+        assertThat(chess.sloppyMove("Nge7"), is(new Move("g8", "e7", Color.BLACK, Flag.flags("n"), Type.KNIGHT, "Ne7")));
     }
 
     @Test
