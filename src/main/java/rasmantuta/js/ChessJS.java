@@ -59,157 +59,163 @@ public class ChessJS {
         return new ChessJS(chess);
     }
 
-    String ascii() {
+    public String ascii() {
         String ascii = (String) chess.callMember("ascii");
         return ascii;
     }
 
-    void clear() {
+    public void clear() {
         chess.callMember("clear");
     }
 
-    String fen() {
+    public String fen() {
         String fen = (String) chess.callMember("fen");
         return fen;
     }
 
-    boolean gameOver() {
+    public boolean gameOver() {
         boolean go = (boolean) chess.callMember("game_over");
         return go;
     }
 
-    Piece get(String square) {
+    public Piece get(String square) {
         ScriptObjectMirror piece = (ScriptObjectMirror) chess.callMember("get", square);
 
         return piece(piece);
     }
 
-    Map<String, Object> header(String... headerItems) {
+    public Map<String, Object> header(String... headerItems) {
         ScriptObjectMirror header = (ScriptObjectMirror) chess.callMember("header", headerItems);
         return Collections.unmodifiableMap(header);
     }
 
-    List<String> history() {
+    public List<String> history() {
         ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history");
 
         return history.values().stream().map(Object::toString).collect(Collectors.toList());
     }
 
-    List<Move> verboseHistory() {
+    public List<Move> verboseHistory() {
         ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history", VERBOSE);
 
         return movesList(history);
     }
 
-    boolean insufficientMaterial() {
+    public boolean insufficientMaterial() {
         return (boolean) chess.callMember("insufficient_material");
     }
 
-    boolean inCheck() {
+    public boolean inCheck() {
         return (boolean) chess.callMember("in_check");
     }
 
-    boolean inCheckmate() {
+    public boolean inCheckmate() {
         return (boolean) chess.callMember("in_checkmate");
     }
 
-    boolean inDraw() {
+    public boolean inDraw() {
         return (boolean) chess.callMember("in_draw");
     }
 
-    boolean inStalemate() {
+    public boolean inStalemate() {
         return (boolean) chess.callMember("in_stalemate");
     }
 
-    boolean inThreefoldRepetition() {
+    public boolean inThreefoldRepetition() {
         return (boolean) chess.callMember("in_threefold_repetition");
     }
 
-    boolean load(String fen) {
+    public boolean load(String fen) {
         return false;
     }
 
-    boolean loadPgn(String pgn) {
+    public boolean loadPgn(String pgn) {
         return false;
     }
 
-    boolean loadSloppyPgn(String pgn, Character newlineChar) {
+    public boolean loadSloppyPgn(String pgn, Character newlineChar) {
         return false;
     }
 
-    Move move(String move) {
+    public Move move(String move) {
         ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", move);
         return Converter.move(retMove);
     }
 
-    Object move(Move move) {
+    public Move move(Move move) {
         ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", convert(engine, move));
         return Converter.move(retMove);
     }
 
-    Object sloppyMove(String move) {
+    public Move sloppyMove(String move) {
         ScriptObjectMirror sloppy = convertJSONString(engine, "{sloppy: true}");
         ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", move, sloppy);
         return Converter.move(retMove);
     }
 
 
-    List<String> moves() {
+    public List<String> moves() {
         ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves");
         return moves.values().stream().map(Object::toString).collect(Collectors.toList());
     }
 
-    List<String> moves(String square) {
+    public List<String> moves(String square) {
         ScriptObjectMirror jsonSquare = convertJSONString(engine, "{square: \"" + square + "\"}");
         ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves", jsonSquare);
         return moves.values().stream().map(Object::toString).collect(Collectors.toList());
     }
 
-    List<Move> verboseMoves() {
+    public List<Move> verboseMoves() {
         ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves", VERBOSE);
         return movesList(moves);
     }
 
-    int numberOfPieces(String color) {
+    public int numberOfPieces(String color) {
         return 0;
     }
 
-    int perft(int depth) {
-        return 0;
+    public String pgn(Integer maxWidth, String newlineChar) {
+        ScriptObjectMirror options = empty(engine);
+
+        if(null != maxWidth) options.put("max_width", maxWidth);
+        if(null != newlineChar) options. put("newline_char", newlineChar);
+
+        String pgn = (String)chess.callMember("pgn", options);
+        return pgn;
     }
 
-    String pgn(Map<Object, Object> options) {
-        return "";
+    public String pgn(){
+        return pgn(null, null);
     }
 
-    boolean put(Piece piece, String square) {
+    public boolean put(Piece piece, String square) {
         boolean put;
         ScriptObjectMirror p = convert(engine, piece);
         put = (boolean) chess.callMember("put", p, square);
         return put;
     }
 
-    Piece remove(String square) {
+    public Piece remove(String square) {
         return null;
     }
 
-    boolean reset() {
+    public boolean reset() {
         return false;
     }
 
-    String squareColor(String square) {
+    public String squareColor(String square) {
         return "";
     }
 
-    String turn() {
+    public String turn() {
         return "";
     }
 
-    Move undo() {
+    public Move undo() {
         return null;
     }
 
-    Validation validateFen(String fen) {
+    public Validation validateFen(String fen) {
         return null;
     }
 }

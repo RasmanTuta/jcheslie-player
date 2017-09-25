@@ -66,5 +66,8 @@ public class Converter {
         return moves.values().stream().map(h -> Converter.move((ScriptObjectMirror) h)).collect(Collectors.toList());
     }
 
+    public static ScriptObjectMirror empty(ScriptEngine engine){
+        return convertJSONString(engine, "{}");
+    }
 
 }

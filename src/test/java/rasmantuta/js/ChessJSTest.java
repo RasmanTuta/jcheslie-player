@@ -370,14 +370,30 @@ public class ChessJSTest {
     }
 
     @Test
-    public void perft() throws Exception {
-        fail();
+    public void pgn() throws Exception {
+        ChessJS chess = chess();
+
+        chess.header("White", "Plunky", "Black", "Plinkie");
+        chess.move("e4");
+        chess.move("e5");
+        chess.move("Nc3");
+        chess.move("Nc6");
+
+        String pgn = chess.pgn(5, "<br />");
+
+        assertTrue(pgn.startsWith("[White \"Plunky\"]<br />[Black \"Plinkie\"]<br /><br />1. e4 e5<br />2. Nc3 Nc6"));
+
+        pgn = chess.pgn(null, "<br />");
+        assertTrue(pgn.startsWith("[White \"Plunky\"]<br />[Black \"Plinkie\"]<br /><br />1. e4 e5 2. Nc3 Nc6"));
+
+        pgn = chess.pgn(null, null);
+        assertTrue(pgn.startsWith("[White \"Plunky\"]\n[Black \"Plinkie\"]\n\n1. e4 e5 2. Nc3 Nc6"));
+
+        pgn = chess.pgn();
+        assertTrue(pgn.startsWith("[White \"Plunky\"]\n[Black \"Plinkie\"]\n\n1. e4 e5 2. Nc3 Nc6"));
     }
 
-    @Test
-    public void pgn() throws Exception {
-        fail();
-    }
+
 
     @Test
     public void put() throws Exception {
