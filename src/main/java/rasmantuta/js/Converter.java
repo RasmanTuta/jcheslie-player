@@ -7,7 +7,9 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Converter {
 
@@ -59,4 +61,10 @@ public class Converter {
         return null == move ? null : new Move((String)move.get("from"), (String)move.get("to"), Color.fromColor((String)move.get("color")), Flag.flags((String)move.get("flags"))
                 , Type.fromPiece((String)move.get("piece")), (String)move.get("san"), Type.fromPiece((String)move.get("promotion")));
     }
+
+    public static List<Move> movesList(ScriptObjectMirror moves) {
+        return moves.values().stream().map(h -> Converter.move((ScriptObjectMirror) h)).collect(Collectors.toList());
+    }
+
+
 }

@@ -7,10 +7,10 @@ import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
 
-import static org.hamcrest.core.Is.*;
-import static org.hamcrest.core.IsNull.*;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.nullValue;
 import static org.junit.Assert.*;
-import static rasmantuta.js.ChessJS.*;
+import static rasmantuta.js.ChessJS.chess;
 
 /*
     test content taken from the chess.js readme.md
@@ -142,10 +142,10 @@ public class ChessJSTest {
 
         List<Move> moves = chess.verboseHistory();
         assertThat(moves, is(Arrays.asList(
-                new Move("e2", "e4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e4" ),
-                new Move("e7", "e5", Color.BLACK, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e5" ),
-                new Move("f2", "f4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "f4" ),
-                new Move("e5", "f4", Color.BLACK, EnumSet.of(Flag.CAPTURE), Type.PAWN, "exf4" )
+                new Move("e2", "e4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e4"),
+                new Move("e7", "e5", Color.BLACK, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e5"),
+                new Move("f2", "f4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "f4"),
+                new Move("e5", "f4", Color.BLACK, EnumSet.of(Flag.CAPTURE), Type.PAWN, "exf4")
         )));
     }
 
@@ -336,12 +336,32 @@ public class ChessJSTest {
 
     @Test
     public void moves() throws Exception {
-        fail();
+        ChessJS chess = chess();
+        List<String> moves = chess.moves();
+
+        assertThat(moves.size(), is(20));
+
+        assertTrue(moves.containsAll(Arrays.asList("a3", "a4", "b3", "b4", "c3", "c4", "d3", "d4", "e3", "e4", "f3", "f4", "g3", "g4", "h3", "h4", "Na3", "Nc3", "Nf3", "Nh3")));
+
     }
 
     @Test
-    public void movesInformation() throws Exception {
-        fail();
+    public void movesSquare() throws Exception {
+        ChessJS chess = chess();
+        List<String> moves = chess.moves("e2");
+        assertThat(moves.size(), is(2));
+        assertTrue(moves.containsAll(Arrays.asList("e3", "e4")));
+
+        moves = chess.moves("e9"); // invalid square
+        assertTrue(moves.isEmpty());
+    }
+
+    @Test
+    public void verboseMoves() throws Exception {
+        ChessJS chess = chess();
+        List<Move> moves = chess.verboseMoves();
+        assertThat(moves.size(), is(20));
+        assertTrue(moves.contains(new Move("a2", "a3", Color.WHITE, Flag.flags("n"), Type.PAWN, "a3")));
     }
 
     @Test

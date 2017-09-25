@@ -12,10 +12,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import static rasmantuta.js.Converter.*;
+
 public class ChessJS {
     private final static Invocable invocable;
     protected final static ScriptEngine engine;
     private final ScriptObjectMirror chess;
+    final private static ScriptObjectMirror VERBOSE;
 
     static {
         engine = new NashornScriptEngineFactory().getScriptEngine("–optimistic-types=true");
@@ -29,6 +32,7 @@ public class ChessJS {
             throw new ChessException("Failed to load javaScript chess engine into Nashorn.", e);
         }
         invocable = (Invocable) engine;
+        VERBOSE = convertJSONString(engine, "{ verbose: true }");
     }
 
     public ChessJS(ScriptObjectMirror chess) {
@@ -77,10 +81,10 @@ public class ChessJS {
     Piece get(String square) {
         ScriptObjectMirror piece = (ScriptObjectMirror) chess.callMember("get", square);
 
-        return Converter.piece(piece);
+        return piece(piece);
     }
 
-    Map<String, Object> header(String ... headerItems) {
+    Map<String, Object> header(String... headerItems) {
         ScriptObjectMirror header = (ScriptObjectMirror) chess.callMember("header", headerItems);
         return Collections.unmodifiableMap(header);
     }
@@ -92,10 +96,9 @@ public class ChessJS {
     }
 
     List<Move> verboseHistory() {
-        ScriptObjectMirror verbose = Converter.convertJSONString(engine, "{ verbose: true }");
-        ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history", verbose);
+        ScriptObjectMirror history = (ScriptObjectMirror) chess.callMember("history", VERBOSE);
 
-        return history.values().stream().map(h ->Converter.move((ScriptObjectMirror) h)).collect(Collectors.toList());
+        return movesList(history);
     }
 
     boolean insufficientMaterial() {
@@ -129,33 +132,42 @@ public class ChessJS {
     boolean loadPgn(String pgn) {
         return false;
     }
+
     boolean loadSloppyPgn(String pgn, Character newlineChar) {
         return false;
     }
 
     Move move(String move) {
-        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", move);
+        ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", move);
         return Converter.move(retMove);
     }
 
     Object move(Move move) {
-        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", Converter.convert(engine, move));
+        ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", convert(engine, move));
         return Converter.move(retMove);
     }
 
     Object sloppyMove(String move) {
-        ScriptObjectMirror sloppy = Converter.convertJSONString(engine, "{sloppy: true}");
-        ScriptObjectMirror retMove = (ScriptObjectMirror)chess.callMember("move", move, sloppy);
+        ScriptObjectMirror sloppy = convertJSONString(engine, "{sloppy: true}");
+        ScriptObjectMirror retMove = (ScriptObjectMirror) chess.callMember("move", move, sloppy);
         return Converter.move(retMove);
     }
 
 
-    String[] moves(Map<Object, Object> options) {
-        return null;
+    List<String> moves() {
+        ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves");
+        return moves.values().stream().map(Object::toString).collect(Collectors.toList());
     }
 
-    Move[] movesInformation() {
-        return null;
+    List<String> moves(String square) {
+        ScriptObjectMirror jsonSquare = convertJSONString(engine, "{square: \"" + square + "\"}");
+        ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves", jsonSquare);
+        return moves.values().stream().map(Object::toString).collect(Collectors.toList());
+    }
+
+    List<Move> verboseMoves() {
+        ScriptObjectMirror moves = (ScriptObjectMirror) chess.callMember("moves", VERBOSE);
+        return movesList(moves);
     }
 
     int numberOfPieces(String color) {
@@ -172,7 +184,7 @@ public class ChessJS {
 
     boolean put(Piece piece, String square) {
         boolean put;
-        ScriptObjectMirror p = Converter.convert(engine, piece);
+        ScriptObjectMirror p = convert(engine, piece);
         put = (boolean) chess.callMember("put", p, square);
         return put;
     }
