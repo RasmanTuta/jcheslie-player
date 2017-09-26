@@ -216,7 +216,7 @@ public class ChessJS {
     }
 
     public Move undo() {
-        return null;
+        return Converter.move((ScriptObjectMirror)chess.callMember("undo"));
     }
 
     public Validation validateFen(String fen) {

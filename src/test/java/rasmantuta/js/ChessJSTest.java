@@ -449,7 +449,15 @@ public class ChessJSTest {
 
     @Test
     public void undo() throws Exception {
-        fail();
+        ChessJS chess = chess();
+
+        chess.fen();
+        chess.move("e4");
+        chess.fen();
+        Move move = chess.undo();
+        assertThat(move, is(new Move("e2", "e4", Color.WHITE, Flag.flags("b"), Type.PAWN, "e4")));
+        assertThat(chess.fen(), is(INITIAL_FEN_EXPECTED));
+        assertNull(chess.undo());
     }
 
     @Test
