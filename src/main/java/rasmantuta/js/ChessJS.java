@@ -126,7 +126,7 @@ public class ChessJS {
     }
 
     public boolean load(String fen) {
-        return false;
+        return (boolean)chess.callMember("load", fen);
     }
 
     public boolean loadPgn(String pgn) {

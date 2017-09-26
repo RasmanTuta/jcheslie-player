@@ -365,11 +365,6 @@ public class ChessJSTest {
     }
 
     @Test
-    public void numberOfPieces() throws Exception {
-        fail();
-    }
-
-    @Test
     public void pgn() throws Exception {
         ChessJS chess = chess();
 
