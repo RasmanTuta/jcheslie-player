@@ -211,8 +211,8 @@ public class ChessJS {
         return SquareColor.fromColor((String)chess.callMember("square_color", square));
     }
 
-    public String turn() {
-        return "";
+    public Color turn() {
+        return Color.fromColor((String)chess.callMember("turn"));
     }
 
     public Move undo() {

@@ -441,7 +441,10 @@ public class ChessJSTest {
 
     @Test
     public void turn() throws Exception {
-        fail();
+        ChessJS chess = chess();
+        assertThat(chess.turn(), is(Color.WHITE));
+        chess.load("rnbqkbnr/pppppppp/8/8/4P3/8/PPPP1PPP/RNBQKBNR b KQkq e3 0 1");
+        assertThat(chess.turn(), is(Color.BLACK));
     }
 
     @Test
