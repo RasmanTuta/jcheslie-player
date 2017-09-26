@@ -220,6 +220,6 @@ public class ChessJS {
     }
 
     public Validation validateFen(String fen) {
-        return null;
+        return Converter.validation((ScriptObjectMirror)chess.callMember("validate_fen", fen));
     }
 }

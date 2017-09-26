@@ -7,6 +7,7 @@ import jdk.nashorn.api.scripting.ScriptObjectMirror;
 
 import javax.script.ScriptEngine;
 import javax.script.ScriptException;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -68,6 +69,10 @@ public class Converter {
 
     public static ScriptObjectMirror empty(ScriptEngine engine){
         return convertJSONString(engine, "{}");
+    }
+
+    public static Validation validation(ScriptObjectMirror valid){
+        return null == valid ? null : new Validation((boolean)valid.get("valid"), (int)valid.get("error_number"), (String)valid.get("error"));
     }
 
 }

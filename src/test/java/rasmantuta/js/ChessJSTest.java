@@ -462,7 +462,11 @@ public class ChessJSTest {
 
     @Test
     public void validate_fen() throws Exception {
-        fail();
+        ChessJS chess = chess();
+        assertThat(chess.validateFen("2n1r3/p1k2pp1/B1p3b1/P7/5bP1/2N1B3/1P2KP2/2R5 b - - 4 25")
+                , is(new Validation(true, 0, "No errors.")));
+        assertThat(chess.validateFen("4r3/8/X12XPk/1p6/pP2p1R1/P1B5/2P2K2/3r4 w - - 1 45")
+                , is(new Validation(false, 9, "1st field (piece positions) is invalid [invalid piece].")));
     }
 
 }
