@@ -15,15 +15,15 @@ import java.util.stream.Collectors;
 import static rasmantuta.js.Converter.*;
 
 public class ChessJS {
-    private final static Invocable invocable;
+    protected final static Invocable invocable;
     protected final static ScriptEngine engine;
-    private final ScriptObjectMirror chess;
+    protected final ScriptObjectMirror chess;
     final private static ScriptObjectMirror VERBOSE;
 
     static {
         engine = new NashornScriptEngineFactory().getScriptEngine("–optimistic-types=true");
         ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-        InputStreamReader reader = new InputStreamReader(classloader.getResourceAsStream("rasmantuta/js/chess/chess.js"));
+//        InputStreamReader reader = new InputStreamReader(classloader.getResourceAsStream("rasmantuta/js/chess/chess.js"));
 
         try {
             Object eval = engine.eval("load(\"src/main/resources/rasmantuta/js/chess/chess.js\");");
@@ -60,8 +60,7 @@ public class ChessJS {
     }
 
     public String ascii() {
-        String ascii = (String) chess.callMember("ascii");
-        return ascii;
+        return (String) chess.callMember("ascii");
     }
 
     public void clear() {
@@ -69,13 +68,11 @@ public class ChessJS {
     }
 
     public String fen() {
-        String fen = (String) chess.callMember("fen");
-        return fen;
+        return (String) chess.callMember("fen");
     }
 
     public boolean gameOver() {
-        boolean go = (boolean) chess.callMember("game_over");
-        return go;
+        return (boolean) chess.callMember("game_over");
     }
 
     public Piece get(String square) {
@@ -173,18 +170,13 @@ public class ChessJS {
         return movesList(moves);
     }
 
-    public int numberOfPieces(String color) {
-        return 0;
-    }
-
     public String pgn(Integer maxWidth, String newlineChar) {
         ScriptObjectMirror options = empty(engine);
 
         if(null != maxWidth) options.put("max_width", maxWidth);
         if(null != newlineChar) options. put("newline_char", newlineChar);
 
-        String pgn = (String)chess.callMember("pgn", options);
-        return pgn;
+        return (String)chess.callMember("pgn", options);
     }
 
     public String pgn(){

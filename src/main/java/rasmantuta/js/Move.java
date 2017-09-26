@@ -2,7 +2,6 @@ package rasmantuta.js;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonValue;
 
 import java.util.EnumSet;
 
@@ -91,8 +90,7 @@ public class Move {
         if (color != move.color) return false;
         if (flags != null ? !flags.equals(move.flags) : move.flags != null) return false;
         if (piece != move.piece) return false;
-        if (san != null ? !san.equals(move.san) : move.san != null) return false;
-        return promotion == move.promotion;
+        return (san != null ? san.equals(move.san) : move.san == null) && promotion == move.promotion;
     }
 
     @Override

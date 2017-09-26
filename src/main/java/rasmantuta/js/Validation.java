@@ -19,8 +19,7 @@ public class Validation {
         Validation that = (Validation) o;
 
         if (valid != that.valid) return false;
-        if (error_number != that.error_number) return false;
-        return error != null ? error.equals(that.error) : that.error == null;
+        return error_number == that.error_number && (error != null ? error.equals(that.error) : that.error == null);
     }
 
     @Override

@@ -16,8 +16,7 @@ import static rasmantuta.js.ChessJS.chess;
     test content taken from the chess.js readme.md
  */
 public class ChessJSTest {
-    public static final String INITIAL_FEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
-    public static final String INITIAL_FEN_EXPECTED = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+    private static final String INITIAL_FEN_EXPECTED = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
 
     @Test
     public void testChess() throws Exception {

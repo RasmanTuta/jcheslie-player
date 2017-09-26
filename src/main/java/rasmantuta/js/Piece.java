@@ -16,8 +16,7 @@ public class Piece {
 
         Piece piece = (Piece) o;
 
-        if (type != piece.type) return false;
-        return color == piece.color;
+        return type == piece.type && color == piece.color;
     }
 
     @Override
