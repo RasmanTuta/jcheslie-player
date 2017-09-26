@@ -433,7 +433,10 @@ public class ChessJSTest {
 
     @Test
     public void square_color() throws Exception {
-        fail();
+        ChessJS chess = chess();
+        assertThat(chess.squareColor("h1"), is(SquareColor.LIGHT));
+        assertThat(chess.squareColor("a7"), is(SquareColor.DARK));
+        assertNull(chess.squareColor("i9"));
     }
 
     @Test

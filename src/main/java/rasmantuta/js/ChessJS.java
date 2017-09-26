@@ -207,8 +207,8 @@ public class ChessJS {
         chess.callMember("reset");
     }
 
-    public String squareColor(String square) {
-        return "";
+    public SquareColor squareColor(String square) {
+        return SquareColor.fromColor((String)chess.callMember("square_color", square));
     }
 
     public String turn() {
