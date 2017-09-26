@@ -130,11 +130,14 @@ public class ChessJS {
     }
 
     public boolean loadPgn(String pgn) {
-        return false;
+        return (boolean)chess.callMember("load_pgn", pgn);
     }
 
-    public boolean loadSloppyPgn(String pgn, Character newlineChar) {
-        return false;
+    public boolean loadSloppyPgn(String pgn, String newlineChar) {
+        ScriptObjectMirror options = Converter.empty(engine);
+        options.put("sloppy", true);
+        if(null != newlineChar) options.put("newline_char", newlineChar);
+        return (boolean) chess.callMember("load_pgn", pgn, options);
     }
 
     public Move move(String move) {

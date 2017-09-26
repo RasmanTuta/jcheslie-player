@@ -588,7 +588,7 @@ var Chess = function(fen) {
             !attacked(them, kings[us]) &&
             !attacked(them, castling_from + 1) &&
             !attacked(them, castling_to)) {
-          add_move(board, moveskings[us] , castling_to,
+          add_move(board, moves, kings[us] , castling_to,
                    BITS.KSIDE_CASTLE);
         }
       }

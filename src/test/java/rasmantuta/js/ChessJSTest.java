@@ -291,7 +291,7 @@ public class ChessJSTest {
         ChessJS chess = chess();
 
         assertFalse(chess.loadPgn(pgn));
-        assertTrue(chess.loadSloppyPgn(pgn, '|'));
+        assertTrue(chess.loadSloppyPgn(pgn, "\\|"));
 
         assertThat(chess.fen(), is("r1bqk2r/pppp1ppp/2P5/8/1b6/1Q3pP1/PP1PPP1P/R1B1KB1R b KQkq - 1 8"));
     }
