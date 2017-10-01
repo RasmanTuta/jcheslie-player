@@ -35,7 +35,7 @@ public class ChessJS {
         VERBOSE = convertJSONString(engine, "{ verbose: true }");
     }
 
-    public ChessJS(ScriptObjectMirror chess) {
+    protected ChessJS(ScriptObjectMirror chess) {
         this.chess = chess;
     }
 
