@@ -53,12 +53,12 @@ public class ChessExtension extends ChessJS {
     public List<Piece> pieces(Color color){
         return SQUARES.stream()
                 .map(this::get)
-                .filter(piece -> piece.color == color)
+                .filter(piece -> null != piece && piece.color == color)
                 .collect(Collectors.toList());
     }
 
     public int numberOfPieces(Color color){
-        return 0;
+        return pieces(color).size();
     }
 
     public List<Move> movesInformation(){
@@ -67,14 +67,18 @@ public class ChessExtension extends ChessJS {
 
     @Override
     public Move move(String move) {
-        numberOfMoves += 1;
-        return super.move(move);
+        Move move1 = super.move(move);
+        if(null != move1) numberOfMoves ++;
+
+        return move1;
     }
 
     @Override
     public Move move(Move move) {
-        numberOfMoves += 1;
-        return super.move(move);
+        Move move1 = super.move(move);
+        if(null != move1) numberOfMoves ++;
+
+        return move1;
     }
 
     @Override
@@ -83,17 +87,16 @@ public class ChessExtension extends ChessJS {
     }
 
     @Override
-    public boolean load(String fen) {
-        return super.load(fen);
-    }
-
-    @Override
     public boolean loadPgn(String pgn) {
-        return super.loadPgn(pgn);
+        boolean success = super.loadPgn(pgn);
+        if(success) numberOfMoves = history().size();
+        return success;
     }
 
     @Override
     public boolean loadSloppyPgn(String pgn, String newlineChar) {
-        return super.loadSloppyPgn(pgn, newlineChar);
+        boolean success = super.loadSloppyPgn(pgn, newlineChar);
+        if(success) numberOfMoves = history().size();
+        return success;
     }
 }
