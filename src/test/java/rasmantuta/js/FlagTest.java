@@ -48,7 +48,7 @@ public class FlagTest {
 
         assertThat(flags.length(), is(7));
 
-        "ceknbpq".chars().mapToObj(c -> (char) c).map(c -> "" + c).forEach(c -> assertTrue(flags.contains(c)));
+        "ceknbpq".chars().mapToObj(c -> (char) c).map(String::valueOf).forEach(c -> assertTrue(flags.contains(c)));
     }
 
     @Test

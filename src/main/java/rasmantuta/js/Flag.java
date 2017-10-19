@@ -16,7 +16,7 @@ public enum Flag {
 
     @JsonValue
     public String flagString(){
-        return "" + flag;
+        return String.valueOf(flag);
     }
 
     public Character flag(){
@@ -37,6 +37,6 @@ public enum Flag {
     }
 
     public static String flags(EnumSet<Flag> flags){
-        return flags.stream().map(Flag::flag).map(c -> "" + c).collect(Collectors.joining( "" ));
+        return flags.stream().map(Flag::flag).map(String::valueOf).collect(Collectors.joining( "" ));
     }
 }
