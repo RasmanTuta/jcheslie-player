@@ -2,7 +2,6 @@ package rasmantuta.js;
 
 import org.junit.Test;
 
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Map;
@@ -137,10 +136,10 @@ public class ChessJSTest {
         chess.move("exf4");
 
         List<String> history = chess.history();
-        assertThat(history, is(Arrays.asList("e4", "e5", "f4", "exf4")));
+        assertThat(history, is(List.of("e4", "e5", "f4", "exf4")));
 
         List<Move> moves = chess.verboseHistory();
-        assertThat(moves, is(Arrays.asList(
+        assertThat(moves, is(List.of(
                 new Move("e2", "e4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e4"),
                 new Move("e7", "e5", Color.BLACK, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "e5"),
                 new Move("f2", "f4", Color.WHITE, EnumSet.of(Flag.PAWN_TWO_SQUARES), Type.PAWN, "f4"),
@@ -340,7 +339,7 @@ public class ChessJSTest {
 
         assertThat(moves.size(), is(20));
 
-        assertTrue(moves.containsAll(Arrays.asList("a3", "a4", "b3", "b4", "c3", "c4", "d3", "d4", "e3", "e4", "f3", "f4", "g3", "g4", "h3", "h4", "Na3", "Nc3", "Nf3", "Nh3")));
+        assertTrue(moves.containsAll(List.of("a3", "a4", "b3", "b4", "c3", "c4", "d3", "d4", "e3", "e4", "f3", "f4", "g3", "g4", "h3", "h4", "Na3", "Nc3", "Nf3", "Nh3")));
 
     }
 
@@ -349,7 +348,7 @@ public class ChessJSTest {
         ChessJS chess = chess();
         List<String> moves = chess.moves("e2");
         assertThat(moves.size(), is(2));
-        assertTrue(moves.containsAll(Arrays.asList("e3", "e4")));
+        assertTrue(moves.containsAll(List.of("e3", "e4")));
 
         moves = chess.moves("e9"); // invalid square
         assertTrue(moves.isEmpty());

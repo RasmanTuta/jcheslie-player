@@ -9,7 +9,6 @@ import rasmantuta.js.Piece;
 
 import javax.script.ScriptException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -17,13 +16,13 @@ import java.util.stream.IntStream;
 
 public class ChessExtension extends ChessJS {
 
-    public static final List<String> LETTERS = Arrays.asList("a", "b", "c", "d", "e", "f", "g", "h");
+    public static final List<String> LETTERS = List.of("a", "b", "c", "d", "e", "f", "g", "h");
     public static final List<String> SQUARES;
     int numberOfMoves = 0;
 
     static{
         List<String> squares = new ArrayList<>();
-        IntStream.range(1, 9).forEach(i -> LETTERS.forEach(l -> squares.add(l + i)));
+        IntStream.iterate(1, i -> i < 10, i -> i++).forEach(i -> LETTERS.forEach(l -> squares.add(l + i)));
         SQUARES = Collections.unmodifiableList(squares);
     }
 

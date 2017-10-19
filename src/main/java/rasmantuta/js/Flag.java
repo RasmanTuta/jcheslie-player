@@ -2,7 +2,6 @@ package rasmantuta.js;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
-import java.util.Arrays;
 import java.util.EnumSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -11,7 +10,7 @@ public enum Flag {
     NON_CAPTURE('n'), PAWN_TWO_SQUARES('b'), EN_PASSANT('e'), CAPTURE('c'), PROMOTION('p'), KINGSIDE_CASTLING('k'), QUEENSIDE_CASTLING('q');
     private Character flag;
 
-    private Flag(Character f) {
+    Flag(Character f) {
         this.flag = f;
     }
 
@@ -38,6 +37,6 @@ public enum Flag {
     }
 
     public static String flags(EnumSet<Flag> flags){
-        return flags.stream().map(f -> f.flag()).map(c -> "" + c).collect(Collectors.joining( "" ));
+        return flags.stream().map(Flag::flag).map(c -> "" + c).collect(Collectors.joining( "" ));
     }
 }
